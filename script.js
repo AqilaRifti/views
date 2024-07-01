@@ -38,5 +38,5 @@ async function updateReport() {
     }
   }
 }
-update_report()
+updateReport()
 var T = setInterval(updateReport, 30000);
