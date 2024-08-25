@@ -28,7 +28,29 @@ async function updateReport() {
         const tableItemDates = document.createElement("td")
         tableRow.id = "item"
         tableItemName.innerText = key
-        tableItemCounter.innerHTML = `Keluar dari <i>google form</i> <b>${entry.counter}</b> kali`
+        const methods = entry.methods.slice(3);
+
+        const methodCount = {};
+
+        for (let i = 0; i < methods.length; i++) {
+            const method = methods[i];
+            if (methodCount[method]) {
+                methodCount[method]++;
+            } else {
+                methodCount[method] = 1;
+            }
+        }
+        let tableItemCounterTexts = []
+        if (methodCount.change > 0) {
+          tableItemCounterTexts.push(`Keluar dari <i>google form</i> <b>${methodCount.change}</b> kali`)
+        }
+        if (methodCount.clipboard > 0) {
+          tableItemCounterTexts.push(`Melakukan <i>Copy/Paste</i> <b>${methodCount.clipboard}</b> kali`)
+        }
+        if (methodCount.audio > 0) {
+          tableItemCounterTexts.push(`Memplay audio/video dari sebuah sumber <b>${methodCount.audio}</b> kali`)
+        }
+        tableItemCounter.innerHTML = tableItemCounterTexts.join("<br>")
         tableItemDates.innerText = entry.dates.slice(3).join(' ');
         tableRow.appendChild(tableItemName)
         tableRow.appendChild(tableItemCounter)
